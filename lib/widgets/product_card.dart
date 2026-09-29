@@ -33,54 +33,124 @@ class _ProductCardState extends State<ProductCard> {
       margin: const EdgeInsets.all(12),
       child: Padding(
         padding: const EdgeInsets.all(16),
-        child: Column(
+        child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Icon(
-              Icons.shopping_bag,
-              size: 60,
-            ),
+            // BAGIAN KIRI: ICON + BADGE
+            SizedBox(
+              width: 130,
+              height: 70,
+              child: Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  const Icon(
+                    Icons.shopping_bag,
+                    size: 60,
+                  ),
 
-            const SizedBox(height: 10),
+                  // Badge Diskon
+                  Positioned(
+                    top: 0,
+                    right: 0,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: const Text(
+                        'Diskon',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
 
-            Text(
-              widget.product.name,
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+                  // Badge Stok
+                  Positioned(
+                    bottom: 0,
+                    left: 0,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 4,
+                        vertical: 2,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: StockBadge(
+                        stock: widget.product.stock,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
 
-            const SizedBox(height: 8),
+            const SizedBox(width: 16),
 
-            CategoryTag(
-              category: widget.product.category,
-            ),
+            // Expanded → menggunakan sisa ruang di sebelah kanan
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Flexible → aman karena berada di dalam Row
+                  Row(
+                    children: [
+                      Flexible(
+                        child: Text(
+                          widget.product.name,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
 
-            const SizedBox(height: 8),
+                  const SizedBox(height: 8),
 
-            PriceLabel(
-              price: widget.product.price,
-            ),
+                  CategoryTag(
+                    category: widget.product.category,
+                  ),
 
-            const SizedBox(height: 8),
+                  const SizedBox(height: 8),
 
-            StockBadge(
-              stock: widget.product.stock,
-            ),
+                  PriceLabel(
+                    price: widget.product.price,
+                  ),
 
-            const SizedBox(height: 10),
+                  const SizedBox(height: 8),
 
-            IconButton(
-              onPressed: () {
-                setState(() {
-                  isFavorite = !isFavorite;
-                });
-              },
-              icon: Icon(
-                isFavorite
-                    ? Icons.favorite
-                    : Icons.favorite_border,
+                  StockBadge(
+                    stock: widget.product.stock,
+                  ),
+
+                  const SizedBox(height: 10),
+
+                  IconButton(
+                    onPressed: () {
+                      setState(() {
+                        isFavorite = !isFavorite;
+                      });
+                    },
+                    icon: Icon(
+                      isFavorite
+                          ? Icons.favorite
+                          : Icons.favorite_border,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
