@@ -3,9 +3,14 @@ import 'package:flutter/material.dart';
 import '../models/product.dart';
 import '../widgets/product_card.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final List<Product> products = [
@@ -211,6 +216,15 @@ class HomePage extends StatelessWidget {
                     ),
                     child: ProductCard(
                       product: products[index],
+                      onAddedToCart: (jumlah) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'Produk berhasil ditambahkan ke keranjang! Jumlah: $jumlah',
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   );
                 },

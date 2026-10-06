@@ -6,10 +6,12 @@ import 'category_tag.dart';
 
 class ProductCard extends StatefulWidget {
   final Product product;
+  final Function(int) onAddedToCart;
 
   const ProductCard({
     super.key,
     required this.product,
+    required this.onAddedToCart,
   });
 
   @override
@@ -29,9 +31,21 @@ class _ProductCardState extends State<ProductCard> {
   Widget build(BuildContext context) {
     print('ProductCard: build()');
 
-    return Card(
+        return Card(
       margin: const EdgeInsets.all(12),
-      child: Padding(
+      child: InkWell(
+       onTap: () async {
+        final result = await Navigator.pushNamed(
+          context,
+          '/detail',
+          arguments: widget.product,
+        );
+
+        if (result != null && result is int) {
+          widget.onAddedToCart(result);
+        }
+      },
+        child: Padding(
         padding: const EdgeInsets.all(16),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -155,6 +169,7 @@ class _ProductCardState extends State<ProductCard> {
             ),
           ],
         ),
+      ),
       ),
     );
   }
