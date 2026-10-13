@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'home_page.dart';
+import 'cart_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -11,14 +12,9 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
 
-  final List<Widget> _pages = [
+    final List<Widget> _pages = [
     const HomePage(),
-    const Center(
-      child: Text(
-        'Halaman Keranjang',
-        style: TextStyle(fontSize: 24),
-      ),
-    ),
+    const CartPage(),
     const Center(
       child: Text(
         'Halaman Profil',
@@ -27,11 +23,11 @@ class _MainPageState extends State<MainPage> {
     ),
   ];
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+    void _onItemTapped(int index) {
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
 
   @override
   Widget build(BuildContext context) {

@@ -3,6 +3,8 @@ import '../models/product.dart';
 import 'price_label.dart';
 import 'stock_badge.dart';
 import 'category_tag.dart';
+import 'package:get/get.dart';
+import '../screens/product_detail_page.dart';
 
 class ProductCard extends StatefulWidget {
   final Product product;
@@ -35,16 +37,14 @@ class _ProductCardState extends State<ProductCard> {
       margin: const EdgeInsets.all(12),
       child: InkWell(
        onTap: () async {
-        final result = await Navigator.pushNamed(
-          context,
-          '/detail',
-          arguments: widget.product,
-        );
+          final result = await Get.to<int>(
+            () => ProductDetailPage(product: widget.product),
+          );
 
-        if (result != null && result is int) {
-          widget.onAddedToCart(result);
-        }
-      },
+          if (result != null) {
+            widget.onAddedToCart(result);
+          }
+        },
         child: Padding(
         padding: const EdgeInsets.all(16),
         child: Row(

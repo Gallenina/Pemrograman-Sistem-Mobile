@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/product.dart';
+import 'package:get/get.dart';
 
 class ProductDetailPage extends StatefulWidget {
   final Product product;
@@ -204,7 +205,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               child: ElevatedButton.icon(
                 onPressed: product.stock > 0
                     ? () {
-                        Navigator.pop(context, jumlah);
+                        Get.back(result: jumlah);
                       }
                     : null,
                 icon: const Icon(Icons.shopping_cart),
